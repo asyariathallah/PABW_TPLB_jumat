@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="tablesorter-master\dist\js\jquery.tablesorter.js"></script>
+  <script src="p03\prakt03\tablesorter-master\dist\js\jquery.tablesorter.js"></script>
 
   <script>
     function dialogHapus(urlHapus,namanya){
@@ -30,7 +30,7 @@ $(document).ready(function(){
   });
 });
 $(function(){
-  $("#myTableUtama").tablesorter({sortlist:[[0,0],[1,0]]});
+  $("#MyTable").tablesorter({sortlist:[[0,0],[1,0]]});
 });
 </script>
 </head>
@@ -54,7 +54,7 @@ $(function(){
   <p></p>
   Filter data: <input id="myInput" type="text" placeholder="Search..">
 
-  <table class="table table-hover" id="myTableUtama">
+  <table class="table table-hover tablesorter" id="MyTable">
     <thead>
       <tr>
         <th>No</th>
