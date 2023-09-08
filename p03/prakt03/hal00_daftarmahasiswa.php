@@ -6,17 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="tablesorter-master\dist\js\jquery.tablesorter.js"></script>
 
   <script>
-    function dialogHapus(){
-      var konfirmasi = confirm("Apakah anda yakin akan menghapus data ini?");
+    function dialogHapus(urlHapus,namanya){
+      var konfirmasi = confirm("Apakah anda yakin akan menghapus data "+namanya+"?");
       if(konfirmasi == true){
         alert("Data berhasil dihapus");
+        document.location=urlHapus;
       }else{
         alert("Data tidak jadi dihapus");
       }
     }
   </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+$(function(){
+  $("#myTableUtama").tablesorter({sortlist:[[0,0],[1,0]]});
+});
+</script>
 </head>
 <body>
 
@@ -35,8 +51,10 @@
       <li><a class="dropdown-item" href="#">info?</a></li>
     </ul>
   </div>
+  <p></p>
+  Filter data: <input id="myInput" type="text" placeholder="Search..">
 
-  <table class="table table-hover">
+  <table class="table table-hover" id="myTableUtama">
     <thead>
       <tr>
         <th>No</th>
@@ -46,7 +64,7 @@
         <th>Jenis Kelamin</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="myTable">
     <?php
             include "hal00_konfigurasikoneksi.php";
 
@@ -73,7 +91,7 @@
                         <td>". $row["prodi"]."</td>
                         <td>". $array_kelamin [ $row["kelamin"] ]."</td>
                         <td><a href=\"hal03_formupdatedata.php?id=".$row["id"]."\" class=\"btn btn-primary\">Update</a></td>
-                        <td><a href=\"#\" class=\"btn btn-danger\">Delete</a></td>
+                        <td><a href=\"javascript:dialogHapus('hal05_aksihapus.php?id=".$row["id"]."','".$row["nama"]."')\" class=\"btn btn-danger\">Delete</a></td>
                      </tr>";
                 $nomor++;     
             }
